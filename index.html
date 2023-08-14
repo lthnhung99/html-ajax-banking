@@ -308,7 +308,7 @@
     <script src="./assets/js/app.js"></script>
     <script>
         let maxId = 1;
-        const customers = [
+        let customers = [
             {
                 "id": maxId++,
                 "fullName": "Nhung",
@@ -370,6 +370,10 @@
         }
 
         function getAllCustomers() {
+            // if (localStorage.getItem("usersData") != null){
+            //     customers = JSON.parse(localStorage.getItem("usersData"));
+            // }
+            
             const tbCustomerBody = document.querySelector("#tbCustomer tbody");
             tbCustomerBody.innerHTML = "";
             customers.forEach(item => {
@@ -395,9 +399,18 @@
                 const c = new Customer(id, fullName, email, phone, address, 0, 0);
 
                 customers.push(c);
+                //localStorage.setItem("usersData", JSON.stringify(customers));
+
                 getAllCustomers();
                 addEventDeleteCustomer();
                 addEventShowModalUpdate();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Thêm thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                
                 let formValue = document.getElementsByClassName("form-control");
                 for (var i = 0; i < formValue.length; i++) {
@@ -517,6 +530,13 @@
                     getAllCustomers();
                     addEventShowModalUpdate();
                     addEventDeleteCustomer();
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Xóa thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
                 });
             });
