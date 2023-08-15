@@ -57,7 +57,7 @@ function getAllCustomers() {
 getAllCustomers();
 
 
-/******************** Create *************************/
+// Create
 
 function handleCreate () {
     const btnCreate = $("#btnCreate");
@@ -92,7 +92,7 @@ function handleCreate () {
                 const str = renderCustomer(data);
                 const tbCustomerBody = $('#tbCustomer tbody');
                 tbCustomerBody.prepend(str);
-
+                $("#modalCreate input").val('');
                 $('#modalCreate').modal('hide');
 
 
@@ -100,6 +100,7 @@ function handleCreate () {
                 addEventShowModalDeposit();
                 addEventShowModalWithdraw();
                 addEventDeleteCustomer();
+                    
         
                 Swal.fire({
                     position: 'top-end',
@@ -117,7 +118,6 @@ function handleCreate () {
 }
 handleCreate()
 
-/******************** Find *************************/
 
 function getCustomerById(id) {
 	return $.ajax ({
@@ -125,7 +125,7 @@ function getCustomerById(id) {
         url: 'http://localhost:3300/customers/' + id,
     });
 }
-/******************** Show Modal *************************/
+// Show Modal
 
 function addEventShowModalUpdate(){
     let btnEdit = $(".edit");
@@ -194,10 +194,7 @@ function addEventShowModalWithdraw () {
        
     })
 }
-
-/******************** Update *************************/
-
-
+// Update
 function handleUpdateCustomer(){
     const btnUpdate = $('#btnUpdate');
     btnUpdate.on('click', () => {
@@ -255,7 +252,7 @@ function update(obj) {
         })
 }
 
-/******************** Deposit *************************/
+// Deposit
 function addEventShowModalDeposit() {
     let btnDeposit = $('.deposit');
     btnDeposit.on('click', function () {
@@ -267,7 +264,7 @@ function addEventShowModalDeposit() {
             $('#fullNameDeposit').val(customer.fullName);
             $('#emailDeposit').val(customer.email);
             $('#balanceDeposit').val(customer.balance);
-        
+            $("#transactionDeposit").val('');
             modalDeposit.modal('show');
         })
             .catch((error) => {
@@ -339,9 +336,7 @@ btnDeposit.on('click', () => {
             console.log(error);
         })
 })
-
-
-/******************** Withdraw *************************/
+// Withdraw
 function addEventShowModalWithdraw() {
     let btnWithdraw = $('.withdraw');
     btnWithdraw.on('click', function () {
@@ -385,12 +380,13 @@ btnWithdraw.on('click', () => {
             addEventShowModalDeposit();
             addEventShowModalWithdraw();
             addEventDeleteCustomer();
+            $("#transactionWithdraw").val('');
             $('#modalWithdraw').modal('hide');
 
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Nạp tiền thành công',
+                title: 'Rút tiền thành công',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -421,13 +417,7 @@ btnWithdraw.on('click', () => {
             console.log(error);
         })
 })
-
-
-
-
-/******************** Delete *************************/
-
-
+// Delete
 function addEventDeleteCustomer() {
 	const btnDelete = $(".delete");
     btnDelete.off('click');
@@ -456,3 +446,4 @@ function addEventDeleteCustomer() {
         }
 	});
 }
+
