@@ -15,7 +15,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="container-fluid">
         <header>
             <div class="col-lg-6">
                 <h1>List of customer </h1>
@@ -27,7 +27,7 @@
                         Transfer histories
                     </button>
                 </a>
-                <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#modalCreate">
+                <button class="btn btn-outline-light" id="btnShowModalCreate">
                     <i class="fas fa-user-plus"></i>
                     Add new customer
                 </button>
@@ -43,8 +43,12 @@
                         <th>FullName</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Address</th>
                         <th>Balance</th>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>Ward</th>
+                        <th>Address</th>
+
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -60,32 +64,47 @@
 
     <div class="modal fade" id="modalCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Modal create</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="error-area hide"></div>
                     <form method="post" id="formCreate">
                         <div class="row mb-3">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="fw-bold">Full Name</label>
-                                <input type="text" class="form-control" id="fullNameCreate">
+                                <input type="text" class="form-control" id="fullNameCreate" name="fullNameCreate">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="fw-bold">Email</label>
-                                <input type="email" class="form-control" id="emailCreate">
+                                <input type="text" class="form-control" id="emailCreate" name="emailCreate">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="fw-bold">Phone</label>
                                 <input type="tel" class="form-control" id="phoneCreate">
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label class="fw-bold">Province</label>
+                                <select class="form-select" id="provinceCreate" name="provinceCreate">
+
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="fw-bold">District</label>
+                                <select class="form-select" id="districtCreate" name="districtCreate"></select>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="fw-bold">Ward</label>
+                                <select class="form-select" id="wardCreate" name="wardCreate"></select>
+                            </div>
+                            <div class="col-lg-3">
                                 <label class="fw-bold">Address</label>
-                                <input type="text" class="form-control" id="addressCreate">
+                                <input type="text" class="form-control" id="addressCreate" name="addressCreate">
                             </div>
                         </div>
                     </form>
@@ -101,36 +120,50 @@
         </div>
     </div>
 
-    <!-- Modal Edit -->
+    <!-- Modal Update -->
 
     <div class="modal fade" id="modalUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Modal update</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form method="post" id="formUpdate">
                         <div class="row mb-3">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="fw-bold">Full Name</label>
-                                <input type="text" class="form-control" id="fullNameUpdate">
+                                <input type="text" class="form-control" id="fullNameUpdate" name="fullNameUpdate">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="fw-bold">Email</label>
-                                <input type="email" class="form-control" id="emailUpdate">
+                                <input type="email" class="form-control" id="emailUpdate" name="emailUpdate">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <label class="fw-bold">Phone</label>
                                 <input type="tel" class="form-control" id="phoneUpdate">
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-3">
+                                <label class="fw-bold">Province</label>
+                                <select class="form-select" id="provinceUpdate" name="provinceUpdate">
+
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="fw-bold">District</label>
+                                <select class="form-select" id="districtUpdate" name="districtUpdate"></select>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="fw-bold">Ward</label>
+                                <select class="form-select" id="wardUpdate" name="wardUpdate"></select>
+                            </div>
+                            <div class="col-lg-3">
                                 <label class="fw-bold">Address</label>
-                                <input type="text" class="form-control" id="addressUpdate">
+                                <input type="text" class="form-control" id="addressUpdate" name="addressUpdate">
                             </div>
                         </div>
                     </form>
@@ -306,8 +339,16 @@
     <script src="./assets/sweetalert2/v11.7.12/sweetalert2.all.min.js"></script>
     <script src="./assets/js/jquery.number.js"></script>
     <script src="./assets/js/app.js"></script>
-    <script src="script-2.js"></script>
- 
+    <script src="/script-3.js"></script>
+    <script>
+        function handleTotalAmountTransaction(element) {
+            let transferAmount = Number(element.value);
+            let fees = 10;
+            let feesAmount = fees * transferAmount * 0.01;
+            document.getElementById("transactionAmount").value = transferAmount + feesAmount;
+        }
+    </script>
+
 </body>
 
 </html>
