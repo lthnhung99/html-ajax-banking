@@ -77,6 +77,7 @@
                             <div class="col-lg-4">
                                 <label class="fw-bold">Full Name</label>
                                 <input type="text" class="form-control" id="fullNameCreate" name="fullNameCreate">
+                            
                             </div>
                             <div class="col-lg-4">
                                 <label class="fw-bold">Email</label>
@@ -84,7 +85,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <label class="fw-bold">Phone</label>
-                                <input type="tel" class="form-control" id="phoneCreate">
+                                <input type="tel" class="form-control" id="phoneCreate" name="phoneCreate">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -143,7 +144,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <label class="fw-bold">Phone</label>
-                                <input type="tel" class="form-control" id="phoneUpdate">
+                                <input type="tel" class="form-control" id="phoneUpdate" name="phoneUpdate">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -189,7 +190,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form method="post" id="formDeposit">
                         <div class="row mb-3">
                             <div class="col-lg-6">
                                 <label class="fw-bold">Full Name</label>
@@ -203,11 +204,11 @@
                         <div class="row mb-3">
                             <div class="col-lg-6">
                                 <label class="fw-bold">Balance ($)</label>
-                                <input type="tel" class="form-control" id="balanceDeposit" readonly>
+                                <input type="tel" class="form-control" id="balanceDeposit" name="balanceDeposit" readonly>
                             </div>
                             <div class="col-lg-6">
                                 <label class="fw-bold">Transaction Amount ($)</label>
-                                <input type="text" class="form-control" id="transactionDeposit">
+                                <input type="text" class="form-control" id="transactionDeposit" name="transactionDeposit">
                                 <div id="deposit-error" style="color: red;"></div>
                             </div>
                         </div>
@@ -248,11 +249,11 @@
                         <div class="row mb-3">
                             <div class="col-lg-6">
                                 <label class="fw-bold">Balance ($)</label>
-                                <input type="tel" class="form-control" id="balanceWithdraw" readonly>
+                                <input type="tel" class="form-control" id="balanceWithdraw" name="balanceWithdraw" readonly>
                             </div>
                             <div class="col-lg-6">
                                 <label class="fw-bold">Transaction Amount ($)</label>
-                                <input type="text" class="form-control" id="transactionWithdraw">
+                                <input type="text" class="form-control" id="transactionWithdraw" name="transactionWithdraw">
                                 <div id="withdraw-error" style="color: red;"></div>
                             </div>
                         </div>
@@ -336,6 +337,7 @@
     </div>
 
     <script src="./assets/js/jquery-3.6.0.min.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
     <script src="./assets/sweetalert2/v11.7.12/sweetalert2.all.min.js"></script>
     <script src="./assets/js/jquery.number.js"></script>
     <script src="./assets/js/app.js"></script>

@@ -22,21 +22,25 @@ const page = {
         commands: {}
     },
     initializeControlEvent: {}
-
 }
+/*
+url: quản lý api
+elements: quản lý các phần tử
+loadData: load dữ liệu
+commands: quản lý các lệnh
+dialogs: quản lý các modal
+initializeControlEvent: quản lý các sự kiện
+*/
 let customerId = 0;
 let locationRegion = new LocationRegion();
 let customer = new Customer();
 let deposit = new Deposit();
 let withdraw = new Withdraw();
 let transfer = new Transfer();
-
 /** Khai báo biến chứa dữ liệu table */
 page.elements.btnShowModalCreate = $('#btnShowModalCreate');
 page.elements.tbCustomerBody = $("#tbCustomer tbody");
-
 /** Khai báo biến chứa dữ liệu modal Create */
-
 page.dialogs.elements.modalCreate = $('#modalCreate');
 page.dialogs.elements.formCreate = $('#formCreate');
 page.dialogs.elements.fullNameCreate = $('#fullNameCreate');
@@ -47,9 +51,7 @@ page.dialogs.elements.districtCreate = $('#districtCreate');
 page.dialogs.elements.wardCreate = $('#wardCreate');
 page.dialogs.elements.addressCreate = $('#addressCreate');
 page.dialogs.elements.btnCreate = $('#btnCreate');
-
 /** Khai báo biến chứa dữ liệu modal Update */
-
 page.dialogs.elements.modalUpdate = $('#modalUpdate');
 page.dialogs.elements.formUpdate = $('#formUpdate');
 page.dialogs.elements.fullNameUpdate = $('#fullNameUpdate');
@@ -60,27 +62,21 @@ page.dialogs.elements.districtUpdate = $('#districtUpdate');
 page.dialogs.elements.wardUpdate = $('#wardUpdate');
 page.dialogs.elements.addressUpdate = $('#addressUpdate');
 page.dialogs.elements.btnUpdate = $('#btnUpdate');
-
 /** Khai báo biến chứa dữ liệu modal Deposit */
-
 page.dialogs.elements.modalDeposit = $('#modalDeposit');
 page.dialogs.elements.fullNameDeposit = $('#fullNameDeposit');
 page.dialogs.elements.emailDeposit = $('#emailDeposit');
 page.dialogs.elements.balanceDeposit = $('#balanceDeposit');
 page.dialogs.elements.transactionDeposit = $('#transactionDeposit');
 page.dialogs.elements.btnDeposit = $('#btnDeposit');
-
 /** Khai báo biến chứa dữ liệu modal Withdraw */
-
 page.dialogs.elements.modalWithdraw = $('#modalWithdraw');
 page.dialogs.elements.fullNameWithdraw = $('#fullNameWithdraw');
 page.dialogs.elements.emailWithdraw = $('#emailWithdraw');
 page.dialogs.elements.balanceWithdraw = $('#balanceWithdraw');
 page.dialogs.elements.transactionWithdraw = $('#transactionWithdraw');
 page.dialogs.elements.btnWithdraw = $('#btnWithdraw');
-
 /** Khai báo biến chứa dữ liệu modal Transfer */
-
 page.dialogs.elements.modalTransfer = $('#modalTransfer');
 page.dialogs.elements.senderId = $('#senderId');
 page.dialogs.elements.senderFullName = $('#senderFullName');
@@ -107,9 +103,6 @@ page.commands.getAllProvinces = () => {
     })
         .done((data) => {
             const provinces = data.results;
-            page.dialogs.elements.provinceCreate.empty();
-            page.dialogs.elements.provinceUpdate.empty();
-
             $.each(provinces, (index, item) => {
                 const str = page.commands.renderOptionProvince(item);
                 page.dialogs.elements.provinceCreate.append(str);
@@ -129,9 +122,6 @@ page.commands.getAllDistrictsByProvinceId = (provinceId, elem) => {
         .done((data) => {
             const districts = data.results;
             elem.empty();
-            //page.dialogs.elements.districtCreate.empty();
-            //page.dialogs.elements.districtUpdate.empty();
-
             $.each(districts, (index, item) => {
                 const str = page.commands.renderOptionDistrict(item);
                 elem.append(str);
@@ -175,7 +165,7 @@ page.commands.renderCustomer = (obj) => {
                 <td>${obj.fullName} </td>
                 <td>${obj.email} </td>
                 <td>${obj.phone} </td>
-                <td class="text-end num-space">${obj.balance}</td>
+                <td>${obj.balance}</td>
                 <td>${obj.locationRegion.provinceName} </td>
                 <td>${obj.locationRegion.districtName} </td>
                 <td>${obj.locationRegion.wardName} </td>
@@ -379,10 +369,7 @@ page.dialogs.commands.create = () => {
                 timer: 1500
             })
 
-            let formValue = $(".form-control");
-            for (var i = 0; i < formValue.length; i++) {
-                formValue[i].val("");
-            }
+         
 
         })
         .fail((error) => {
@@ -517,7 +504,8 @@ page.dialogs.commands.deposit = (customer, deposit) => {
 }
 
 page.dialogs.commands.withdraw = (customer, withdraw) => {
-
+console.log(deposit.balanceWithdraw,"balance");
+console.log(withdraw.transactionAmount,"transaction");
     if (!isNaN(withdraw.transactionAmount)) {
         if (withdraw.transactionAmount <= 0) {
             $("#withdraw-error").text("Số tiền phải > 0");
@@ -731,7 +719,82 @@ page.commands.handleDeleteCustomer = (customerId) => {
             })
     }
 }
+// Validate
+page.dialogs.elements.formCreate.validate({
+    rules: {
+        fullNameCreate: {
+            required: true,
+            minlength: 5,
+            maxlength: 25
+        },
+        emailCreate: {
+            required: true,
+            isEmail: true
+        },
+        phoneCreate: {
+            required: true,
+            isNumberWithSpace: true
+        }
+    },
+    messages: {
+        fullNameCreate: {
+            required: 'Vui lòng nhập họ tên đầy đủ',
+            minlength: 'Họ tên tối thiểu là 5 ký tự',
+            maxlength: 'Họ tên tối đa là 25 ký tự'
+        },
+        emailCreate: {
+            required: 'Vui lòng nhập email đầy đủ',
+        },
+        phoneCreate: {
+            required: 'Vui lòng nhập phone đầy đủ',
+        }
+    },
+    submitHandler: function () {
+        page.dialogs.commands.create();
+    }
+})
 
+$.validator.addMethod("isEmail", function (value, element) {
+    return this.optional(element) || /[a-z]+@[a-z]+\.[a-z]+/.test(value);
+}, "Vui lòng nhập đúng định dạng email");
+
+$.validator.addMethod("isNumberWithSpace", function (value, element) {
+    return this.optional(element) || /^\s*[0-9,\s]+\s*$/i.test(value);
+}, "Vui lòng nhập giá trị số");
+page.dialogs.elements.formUpdate.validate({
+    rules: {
+        fullNameUpdate: {
+            required: true,
+            minlength: 5,
+            maxlength: 25
+        },
+        emailUpdate: {
+            required: true,
+            isEmail: true
+        },
+        phoneUpdate: {
+            required: true,
+            isNumberWithSpace: true
+        }
+    },
+    messages: {
+        fullNameUpdate: {
+            required: 'Vui lòng nhập họ tên đầy đủ',
+            minlength: 'Họ tên tối thiểu là 5 ký tự',
+            maxlength: 'Họ tên tối đa là 25 ký tự'
+        },
+        emailUpdate: {
+            required: 'Vui lòng nhập email đầy đủ',
+        },
+        phoneUpdate: {
+            required: 'Vui lòng nhập phone đầy đủ',
+        }
+    },
+    
+    submitHandler: function () {
+        page.dialogs.commands.update();
+    }
+})
 /** Quản lý các sự kiện */
 
 page.initializeControlEvent = () => {
@@ -758,10 +821,26 @@ page.initializeControlEvent = () => {
     })
 
     page.dialogs.elements.btnCreate.on('click', () => {
-        page.dialogs.commands.create();
+        page.dialogs.elements.formCreate.trigger('submit');
     })
     page.dialogs.commands.closeModalCreate = () => {
         page.dialogs.elements.formCreate[0].reset();
+        page.dialogs.elements.formCreate.validate().resetForm();
+    }
+    page.dialogs.commands.closeModalUpdate = () => {
+        page.dialogs.elements.formUpdate[0].reset();
+        page.dialogs.elements.formUpdate.validate().resetForm();
+        page.dialogs.elements.formUpdate.find("input.error").removeClass("error");
+    }
+    page.dialogs.commands.closeModalDeposit = () => {
+        page.dialogs.elements.formDeposit[0].reset();
+        
+    }
+    page.dialogs.commands.closeModalWithdraw = () => {
+        page.dialogs.elements.formWithdraw[0].reset();
+    }
+    page.dialogs.commands.closeModalTransfer = () => {
+        page.dialogs.elements.formTransfer[0].reset();
     }
 
     page.elements.tbCustomerBody.on('click', '.edit', function () {
@@ -790,18 +869,7 @@ page.initializeControlEvent = () => {
     /** Update */
 
     page.dialogs.elements.btnUpdate.on('click', () => {
-        // const fullName = page.dialogs.elements.fullNameUpdate.val();
-        // const email = page.dialogs.elements.emailUpdate.val();
-        // const phone = page.dialogs.elements.phoneUpdate.val();
-
-        // const address = page.dialogs.elements.addressUpdate.val();
-
-        // customer.fullName = fullName;
-        // customer.email = email;
-        // customer.phone = phone;
-        // customer.address = address;
-
-        page.dialogs.commands.update(customer);
+        page.dialogs.elements.formUpdate.trigger("submit");
     })
     /** Deposit */
 
@@ -844,6 +912,16 @@ page.initializeControlEvent = () => {
     page.dialogs.elements.modalCreate.on("hidden.bs.modal", function () {
         page.dialogs.commands.closeModalCreate();
     })
+
+    page.dialogs.elements.modalUpdate.on("hidden.bs.modal", function () {
+        page.dialogs.commands.closeModalUpdate();
+       
+    })
+
+    page.dialogs.elements.modalDeposit.on("hidden.bs.modal", function () {
+        page.dialogs.commands.closeModalDeposit();
+        
+    })
 }
 
 page.loadData = () => {
@@ -865,9 +943,7 @@ page.loadData = () => {
 $(() => {
     page.loadData();
 
-    page.initializeControlEvent(
-        console.log("ý nghĩa")
-    );
+    page.initializeControlEvent();
     
 
 })

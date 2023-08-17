@@ -4,6 +4,12 @@
     box-sizing: border-box;
     border: 1px solid;
 } */
+.container-fluid {
+    --bs-gutter-x: 0;
+}
+.table>tbody>tr>td {
+    vertical-align: middle;
+  }
 header {
     background-color:  #299be4;
     height: 80px;
@@ -22,4 +28,7 @@ header {
     text-align: center;
     background-color: green;
     color: #fff;
+}
+.error {
+    color: red;
 }
